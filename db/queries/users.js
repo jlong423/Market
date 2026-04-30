@@ -13,7 +13,7 @@ VALUES($1, $2) RETURNING *
   } = await db.query(sql, [username, hashedPassword]);
   return user;
 }
-export async function getUserByUsernameAndPassword(username, password) {
+export async function getUserByUsernameAndPassword(username, userpassword) {
   const sql = `
     SELECT * FROM users
     WHERE username=$1
@@ -23,7 +23,7 @@ export async function getUserByUsernameAndPassword(username, password) {
   } = await db.query(sql, [username]);
   if (!user) return null;
 
-  const isValid = await bcrypt.compare(username, user.password);
+  const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) return null;
 
   return user;

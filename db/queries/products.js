@@ -13,7 +13,7 @@ VALUES($1, $2, $3) RETURNING *
 }
 
 export async function getProducts() {
-  "SELECT * FROM products";
+  const sql = "SELECT * FROM products";
   const { rows: products } = await db.query(sql);
   return products;
 }

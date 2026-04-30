@@ -22,7 +22,7 @@ router.post("/", requireBody(["date"]), async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const orders = await getOrdersByUserId(req, user.id);
+  const orders = await getOrdersByUserId(req.user.id);
   res.send(orders);
 });
 
