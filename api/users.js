@@ -23,7 +23,7 @@ router.post(
   requireBody(["username", "password"]),
   async (req, res) => {
     const { username, password } = req.body;
-    const user = await getUserByUsernameAndPassword({ username, password });
+    const user = await getUserByUsernameAndPassword(username, password);
     if (!user) return res.status(401).send("Invalid username and password.");
 
     const token = createToken({ id: user.id });

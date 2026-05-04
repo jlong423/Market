@@ -1,11 +1,11 @@
-DROP TABLE users;
-DROP TABLE orders;
-DROP TABLE orders_products;
-DROP TABLE products;
+DROP TABLE IF EXISTS users CASCADE; 
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS orders_products CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
+    username TEXT  UNIQUE NOT NULL,
     password TEXT NOT NULL
 );
 

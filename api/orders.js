@@ -5,11 +5,11 @@ export default router;
 import {
   createOrder,
   getOrderById,
-  getOrdersByUserId,
+  getOrderByUserId,
 } from "#db/queries/orders";
 
 import { createOrderProduct } from "#db/queries/ordersProducts";
-import { getProductsByOrderId } from "#db/queries/products";
+import { getProductByOrderId } from "#db/queries/products";
 import requireBody from "#middleware/requireBody";
 import requireUser from "#middleware/requireUser";
 
@@ -22,12 +22,13 @@ router.post("/", requireBody(["date"]), async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const orders = await getOrdersByUserId(req.user.id);
+  const orders = await getOrderByUserId(req.user.id);
   res.send(orders);
 });
 
 router.param("id", async (req, res, next, id) => {
   const order = await getOrderById(id);
+  console.log("ORDER", order);
   if (!order) return res.status(404).send("Order not found");
 
   if (order.user_id !== req.user.id)
@@ -55,6 +56,6 @@ router.post(
 );
 
 router.get("/:id/products", async (req, res) => {
-  const products = await getProductsByOrderId(req.order.id);
+  const products = await getProductByOrderId(req.order.id);
   res.send(products);
 });

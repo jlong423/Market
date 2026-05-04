@@ -33,6 +33,8 @@ export async function getOrderByUserId(userId) {
 
 export async function getOrderById(id) {
   const sql = "SELECT * FROM orders WHERE id=$1";
-  const { rows: order } = await db.query(sql, [id]);
+  const {
+    rows: [order],
+  } = await db.query(sql, [id]);
   return order;
 }
